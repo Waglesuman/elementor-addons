@@ -1,0 +1,79 @@
+/* Additional styling for repeater items */
+.elementor-repeater-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.elementor-repeater-item {
+  width: 100%;
+  /* Adjust the width based on the number of items you want in a row */
+  padding: 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc; /* Add border */
+  margin-bottom: 20px; /* Add margin bottom for spacing */
+}
+
+.elementor-repeater-item-2 {
+  width: calc(100% / 2);
+  /* Adjust the width based on the number of items you want in a row */
+  padding: 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc; /* Add border */
+  margin-bottom: 20px; /* Add margin bottom for spacing */
+}
+
+.elementor-repeater-item-3 {
+  width: calc(100% / 3);
+  /* Adjust the width based on the number of items you want in a row */
+  padding: 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc; /* Add border */
+  margin-bottom: 20px; /* Add margin bottom for spacing */
+}
+
+.elementor-repeater-item-4 {
+  width: calc(100% / 4);
+  /* Adjust the width based on the number of items you want in a row */
+  padding: 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc; /* Add border */
+  margin-bottom: 20px; /* Add margin bottom for spacing */
+}
+
+.elementor-repeater-item-5 {
+  width: calc(100% / 5);
+  /* Adjust the width based on the number of items you want in a row */
+  padding: 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc; /* Add border */
+  margin-bottom: 20px; /* Add margin bottom for spacing */
+}
+
+@media (max-width: 992px) {
+  .elementor-repeater-item {
+    width: calc(100% / 2);
+    /* Adjust the width based on the number of items you want in a row */
+  }
+}
+
+@media (max-width: 768px) {
+  .elementor-repeater-item {
+    width: 100%;
+  }
+}
+
+/* Additional styling for item elements */
+.elementor-repeater-item .elementor-repeater-item-title {
+  font-weight: bold;
+  text-align: center; /* Center align the title */
+  margin-bottom: 10px; /* Add some bottom margin for spacing */
+}
+
+.elementor-repeater-item .elementor-repeater-item-image {
+  width: 100%;
+  height: auto;
+}
+
+.elementor-repeater-item .elementor-repeater-item-content {
+  margin-top: 10px;
+}
