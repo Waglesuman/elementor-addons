@@ -4,6 +4,11 @@
   flex-wrap: wrap;
 }
 
+.elementor-repeater-items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .elementor-repeater-item {
   width: 100%;
   /* Adjust the width based on the number of items you want in a row */
@@ -63,7 +68,7 @@
 }
 
 /* Additional styling for item elements */
-.elementor-repeater-item .elementor-repeater-item-title {
+.elementor-repeater-item-title {
   font-weight: bold;
   text-align: center; /* Center align the title */
   margin-bottom: 10px; /* Add some bottom margin for spacing */

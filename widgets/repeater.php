@@ -1,9 +1,9 @@
 <?php
-class Elementor_Test_Widget extends \Elementor\Widget_Base
+class Elementor_Repeater_Widget extends \Elementor\Widget_Base
 {
   public function get_name()
   {
-    return 'elementor_test_widget';
+    return 'elementor_test_widget1';
   }
 
   public function get_title()
@@ -11,9 +11,22 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base
     return esc_html__('Repeater', 'elementor-addon');
   }
 
+  // loads style.css in the header
+  public function get_style_depends()
+  {
+    return ['repeater-widget'];
+  }
+
+  // loads script in the footer
+  public function get_script_depends()
+  {
+    return ['repeater-widget'];
+  }
+
+  // displays icon in the sidebar panel
   public function get_icon()
   {
-    return 'eicon-theme-builder';
+    return 'eicon-plus-circle-o';
   }
 
   public function get_categories()
@@ -21,20 +34,14 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base
     return ['basic'];
   }
 
+  // useful while searching for the widget in the panel
   public function get_keywords()
   {
-    return ['repeater'];
+    return ['repeater1', 'repeater'];
   }
 
   protected function register_controls()
   {
-    $post_types = get_post_types(['public' => true], 'objects');
-    $post_types_options = wp_list_pluck($post_types, 'label', 'name');
-
-    $categories = get_categories(['exclude' => get_option('default_category')]);
-
-    $categories_options = wp_list_pluck($categories, 'name', 'term_id');
-
     $this->start_controls_section(
       'content_section',
       [
@@ -56,115 +63,46 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base
     );
 
     $repeater->add_control(
-      'list_post_type',
+      'list_link',
       [
-        'label' => esc_html__('Post Type', 'elementor-addon'),
-        'type' => \Elementor\Controls_Manager::SELECT,
-        'default' => 'post',
-        'options' => $post_types_options,
-      ]
-    );
-
-    $repeater->add_control(
-      'list_category',
-      [
-        'label' => esc_html__('Category', 'elementor-addon'),
-        'type' => \Elementor\Controls_Manager::SELECT,
-        'default' => '',
-        'options' => $categories_options,
-      ]
-    );
-
-    $repeater->add_control(
-      'list_count',
-      [
-        'label' => esc_html__('Number of Posts', 'elementor-addon'),
-        'type' => \Elementor\Controls_Manager::NUMBER,
-        'min' => -1,
-        'default' => -1,
-      ]
-    );
-
-    $repeater->add_control(
-      'item_per_row',
-      [
-        'label' => esc_html__('Columns', 'elementor-addon'),
-        'type' => \Elementor\Controls_Manager::SELECT,
-        'default' => 'elementor-repeater-item-3',
-        'options' => [
-          'elementor-repeater-item-1' => esc_html__('1', 'elementor-addon'),
-          'elementor-repeater-item-2' => esc_html__('2', 'elementor-addon'),
-          'elementor-repeater-item-3' => esc_html__('3', 'elementor-addon'),
-          'elementor-repeater-item-4' => esc_html__('4', 'elementor-addon'),
-          'elementor-repeater-item-5' => esc_html__('5', 'elementor-addon'),
+        'label' => esc_html__('Link', 'elementor-addon'),
+        'type' => \Elementor\Controls_Manager::URL,
+        'default' => [
+          'url' => '',
         ],
+        'label_block' => true,
       ]
     );
 
-
     $repeater->add_control(
-      'list_order',
+      'list_image',
       [
-        'label' => esc_html__('Sort Order', 'elementor-addon'),
-        'type' => \Elementor\Controls_Manager::SELECT,
-        'default' => 'DESC',
-        'options' => [
-          'ASC' => esc_html__('Ascending', 'elementor-addon'),
-          'DESC' => esc_html__('Descending', 'elementor-addon'),
+        'label' => esc_html__('Image', 'elementor-addon'),
+        'type' => \Elementor\Controls_Manager::MEDIA,
+        'default' => [
+          'url' => '',
         ],
+        'label_block' => true,
       ]
     );
 
     $repeater->add_control(
-      'show_featured_image',
+      'list_content',
       [
-        'label' => esc_html__('Show Featured Image', 'elementor-addon'),
-        'type' => \Elementor\Controls_Manager::SWITCHER,
-        'label_on' => esc_html__('Show', 'elementor-addon'),
-        'label_off' => esc_html__('Hide', 'elementor-addon'),
-        'return_value' => 'yes',
-        'default' => 'yes',
+        'label' => esc_html__('Content', 'elementor-addon'),
+        'type' => \Elementor\Controls_Manager::WYSIWYG,
+        'default' => esc_html__('List Content', 'elementor-addon'),
+        'show_label' => false,
       ]
     );
 
     $repeater->add_control(
-      'featured_image_position',
+      'list_color',
       [
-        'label' => esc_html__('Image Position', 'elementor-addon'),
-        'type' => \Elementor\Controls_Manager::SELECT,
-        'default' => 'above_content',
-        'options' => [
-          'above_content' => esc_html__('Above Content', 'elementor-addon'),
-          'below_content' => esc_html__('Below Content', 'elementor-addon'),
-        ],
-        'condition' => [
-          'show_featured_image' => 'yes',
-        ],
-      ]
-    );
-
-    $repeater->add_control(
-      'featured_image_size',
-      [
-        'label' => esc_html__('Image Size', 'elementor-addon'),
-        'type' => \Elementor\Controls_Manager::SELECT,
-        'default' => 'medium',
-        'options' => [
-          'full' => esc_html__('Original', 'elementor-addon'),
-          'large' => esc_html__('Large', 'elementor-addon'),
-          'medium' => esc_html__('Medium', 'elementor-addon'),
-          'thumbnail' => esc_html__('Small', 'elementor-addon'),
-        ],
-      ]
-    );
-
-    $repeater->add_control(
-      'background_color',
-      [
-        'label' => esc_html__('Background Color', 'elementor-addon'),
+        'label' => esc_html__('Color', 'elementor-addon'),
         'type' => \Elementor\Controls_Manager::COLOR,
         'selectors' => [
-          '{{CURRENT_ITEM}} .elementor-repeater-item' => 'background-color: {{VALUE}};',
+          '{{WRAPPER}} {{CURRENT_ITEM}}' => 'color: {{VALUE}}'
         ],
       ]
     );
@@ -175,84 +113,80 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base
         'label' => esc_html__('Repeater List', 'elementor-addon'),
         'type' => \Elementor\Controls_Manager::REPEATER,
         'fields' => $repeater->get_controls(),
+        'default' => [
+          [
+            'list_title' => esc_html__('Title #1', 'elementor-addon'),
+            'list_content' => esc_html__('Item content. Click the edit button to change this text.', 'elementor-addon'),
+          ],
+        ],
         'title_field' => '{{{ list_title }}}',
-        'separator' => 'before',
       ]
     );
 
     $this->end_controls_section();
   }
-
   protected function render()
   {
     $settings = $this->get_settings_for_display();
 
     if ($settings['list']) {
       echo '<div class="elementor-repeater-items">';
+
+      echo '<div class="elementor-repeater-container">'; // Add a container element
+
       foreach ($settings['list'] as $item) {
-        $args = [
-          'posts_per_page' => $item['list_count'],
-          'order' => $item['list_order'],
-        ];
-
-        if (!empty($item['list_post_type'])) {
-          $args['post_type'] = $item['list_post_type'];
+        echo '<div class="elementor-repeater-item">';
+        echo '<h3 class="elementor-repeater-item-title">' . $item['list_title'] . '</h3>';
+        if ($item['list_image']['url']) {
+          echo '<img src="' . $item['list_image']['url'] . '" alt="' . $item['list_title'] . '" class="elementor-repeater-item-image">';
         }
+        echo '<div class="elementor-repeater-item-content">' . $item['list_content'] . '</div>';
 
-        if (!empty($item['list_category'])) {
-          $args['cat'] = $item['list_category'];
-        }
+        // if ($item['list_link']['url']) {
+        //   echo '<a href="' . $item['list_link']['url'] . '" class="elementor-repeater-item-link">' . esc_html__('button', 'elementor-addon') . '</a>';
+        // }
 
-        $query = new WP_Query($args);
-        if ($query->have_posts()) {
-          echo '<div class="elementor-repeater-container">';
-          while ($query->have_posts()) {
-            $query->the_post();
-            $style = '';
-            if (!empty($item['background_color'])) {
-              $style .= 'background-color: ' . $item['background_color'] . ';';
-            }
+        echo '<a href="' . $item['list_link']['url'] . '" class="elementor-repeater-item-link">' . esc_html__('button', 'elementor-addon') . '</a>';
 
-            echo '<div class="' . $item['item_per_row'] . '" style="' . $style . '">';
-            echo '<h3 class="elementor-repeater-item-title">' . get_the_title() . '</h3>';
 
-            if ($item['show_featured_image'] === 'yes' && has_post_thumbnail()) {
-              $featured_image_position = $item['featured_image_position'];
-
-              if ($featured_image_position === 'above_content') {
-                echo '<div class="elementor-repeater-item-image">';
-                the_post_thumbnail($item['featured_image_size']);
-                echo '</div>';
-              }
-            }
-
-            $content = get_the_content();
-            $trimmed_content = wp_trim_words($content, 50);
-
-            echo '<div class="elementor-repeater-item-content">' . $trimmed_content . '</div>';
-
-            if ($item['show_featured_image'] === 'yes' && has_post_thumbnail()) {
-              $featured_image_position = $item['featured_image_position'];
-
-              if ($featured_image_position === 'below_content') {
-                echo '<div class="elementor-repeater-item-image">';
-                the_post_thumbnail($item['featured_image_size']);
-                echo '</div>';
-              }
-            }
-
-            
-            if (str_word_count($content) > 50) {
-              echo '<a href="' . get_permalink() . '" target="_blank" class="elementor-repeater-item-seemore">See More...</a>';
-            }
-
-            echo '</div>';
-          }
-          echo '</div>';
-          wp_reset_postdata();
-        }
+        echo '</div>';
       }
+
+      echo '</div>'; // Close the container element
+
       echo '</div>';
+    ?>
+    <?php
     }
   }
+
+  protected function content_template()
+  {
+    ?>
+    <# if ( settings.list.length ) { #>
+      <div class="elementor-repeater-items">
+        <div class="elementor-repeater-container"> <!-- Add a container element -->
+          <# _.each( settings.list, function( item ) { #>
+            <div class="elementor-repeater-item">
+              <h3 class="elementor-repeater-item-title">{{{ item.list_title }}}</h3>
+              <# if ( item.list_image && item.list_image.url ) { #>
+                <img src="{{ item.list_image.url }}" alt="{{ item.list_title }}" class="elementor-repeater-item-image">
+                <# } #>
+                  <div class="elementor-repeater-item-content">{{{ item.list_content }}}</div>
+                  <!-- <# if ( item.list_link && item.list_link.url ) { #>
+                    <a href="{{ item.list_link.url }}" class="elementor-repeater-item-link">
+                      <?php // esc_html_e('button', 'elementor-addon'); ?>
+                    </a>
+                    <# } #> -->
+                  <a href="{{ item.list_link.url }}" class="elementor-repeater-item-link">
+                    <?php esc_html_e('button', 'elementor-addon'); ?>
+                  </a>
+            </div>
+            <# }); #>
+        </div> <!-- Close the container element -->
+      </div>
+      <# } #>
+        <?php
+  }
+
 }

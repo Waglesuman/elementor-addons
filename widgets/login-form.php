@@ -14,8 +14,7 @@ class Elementor_login_form extends \Elementor\Widget_Base
 
 	public function get_icon()
 	{
-		// return 'eicon-code';
-		return 'eicon-theme-builder';
+		return 'eicon-preferences';
 	}
 
 	public function get_categories()
@@ -31,9 +30,9 @@ class Elementor_login_form extends \Elementor\Widget_Base
 	protected function render()
 	{
 		?>
-		<p>
+		<div class="elem-login-form">
 			<?php echo wp_login_form(); ?>
-		</p>
+		</div>
 		<?php
 	}
 }

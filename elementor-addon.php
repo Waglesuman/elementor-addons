@@ -8,22 +8,21 @@
  * Text Domain: elementor-addon
  */
 
-function register_hello_world_widget($widgets_manager)
+function register_elementor_widget($widgets_manager)
 {
-  require_once(__DIR__ . '/widgets/hello-world-widget-1.php');
-  require_once(__DIR__ . '/widgets/hello-world-widget-2.php');
-  require_once(__DIR__ . '/widgets/login-form.php');
-  require_once(__DIR__ . '/widgets/repeater.php');
-  require_once(__DIR__ . '/widgets/repeater2.php');
 
-  $widgets_manager->register(new \Elementor_Hello_World_Widget_1());
-  $widgets_manager->register(new \Elementor_Hello_World_Widget_2());
+  require_once(__DIR__ . '/widgets/login-form.php');
+  require_once(__DIR__ . '/widgets/posts-repeater.php');
+  require_once(__DIR__ . '/widgets/repeater.php');
+  require_once(__DIR__ . '/widgets/posts.php');
+
   $widgets_manager->register(new \Elementor_login_form());
   $widgets_manager->register(new \Elementor_Test_Widget);
   $widgets_manager->register(new \Elementor_Repeater_Widget);
+  $widgets_manager->register(new \Elementor_Post_widget);
 
 }
-add_action('elementor/widgets/register', 'register_hello_world_widget');
+add_action('elementor/widgets/register', 'register_elementor_widget');
 
 // Register style sheet.
 function register_widget_styles()
