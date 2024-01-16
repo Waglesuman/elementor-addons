@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: Elementor Addons
- * Description: Simple hello world widgets for Elementor.
+ * Description: Elementor addon to display post from post or custom post type .
  * Version:     1.0.0
- * Author:      Elementor Developer
+ * Author:      Suman Wagle
  * Author URI:  https://developers.elementor.com/
  * Text Domain: elementor-addon
  */
